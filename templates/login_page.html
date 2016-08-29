@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <head>
+  </head>
+  <body>
+    <div class="container">
+    <div class="page-form">
+    <div id="wrapper" style="text-align: center">
+      <form action="" method="post">
+        <h2 class="form-signin-heading">Log In</h2>
+        <label for="inputUsername" class="sr-only">User</label>
+        <input type="username" name="username" class="form-control" placeholder="Username" value="{{ request.form.username }}" required autofocus>
+        <label for="inputPassword" class="sr-only">Password</label>
+        <input type="password" id="inputPassword" class="form-control" placeholder="Password" name="password" value="{{ request.form.password }}" required autofocus>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
+      </form>
+            {% if error %}
+      <p><strong>Error:</strong> {{ error }}
+      {% endif %}
+      <p><strong><a href="{{ url_for('signout') }}">Logout</a></strong>
+      <p><strong><a href="{{ url_for('register') }}">Register</a></strong>
+    </div> <!-- /container -->
+  </body>
+
+{% endblock %}
