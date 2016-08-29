@@ -37,10 +37,12 @@ def login():
         session['username'] = request.form['username']
         user_password = request.form['password']
         user_data = User.find_username(session['username'])
-        if request.form['username'] != user_data['username'] or Util.check_hashed_password(password=user_password, hashed_password=user_data['password']) is False:
-            error = "Invalid Credentials."
-        elif Database.find_one('user_data', {'username': username}) is None:
+        if Database.find_one('user_data', {'username': session['username']}) is None:
             error = "Username is not in database."
+            session['username'] = None
+            return render_template('login_page.html', error=error, title='login')
+        elif request.form['username'] != user_data['username'] or Util.check_hashed_password(password=user_password, hashed_password=user_data['password']) is False:
+            error = "Invalid Credentials."
         else:
             return redirect(url_for('home'))
     session['username'] = None
